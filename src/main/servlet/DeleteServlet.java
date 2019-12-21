@@ -17,15 +17,16 @@ public class DeleteServlet extends HttpServlet {
         UserService userService = UserService.getInstance();
         String name = req.getParameter("name");
         if (name == null) {
+            resp.setContentType("text/html;charset=utf-8");
             resp.getWriter().println("Не введен пользователь");
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             if (userService.deleteUserByName(name)) {
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
             } else {
+                resp.setContentType("text/html;charset=utf-8");
                 resp.getWriter().println("Client not delete");
             }
         }
     }
-
 }

@@ -20,12 +20,14 @@ public class RegistrationServlet extends HttpServlet {
         String name = req.getParameter("name");
         String password = req.getParameter("password");
         if (name == null || password == null) {
+            resp.setContentType("text/html;charset=utf-8");
             resp.getWriter().println("Не введен пароль или логин");
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         } else {
             if (userService.addUser(new User(name, password))) {
                 req.getRequestDispatcher("index.jsp").forward(req, resp);
             } else {
+                resp.setContentType("text/html;charset=utf-8");
                 resp.getWriter().println("Client not add");
             }
         }

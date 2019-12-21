@@ -50,6 +50,13 @@ public class UserDAO {
                 .anyMatch(x -> x.equals(name));
     }
 
+    public boolean idIsExist(long id) {
+        return getAllUser()
+                .stream()
+                .map(User::getId)
+                .anyMatch(x -> x.equals(id));
+    }
+
     public void addUser(User user) {
         try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (name, password) VALUES (?, ?)")) {
             preparedStatement.setString(1, user.getName());
@@ -60,16 +67,6 @@ public class UserDAO {
         }
     }
 
-//    public void deleteUser(User user) {
-//        try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM users WHERE name=?")) {
-//            preparedStatement.setString(1, user.getName());
-//            preparedStatement.executeUpdate();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
-
     public void deleteUserByName(String name) {
         try (PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM users WHERE name= ?")) {
             preparedStatement.setString(1, name);
@@ -79,12 +76,11 @@ public class UserDAO {
         }
     }
 
-    public void editeUser(long id, String name, String password) {
-        User user = getUserById(id);
+    public void editeUser(long id, String name) {
+//        User user = getUserById(id);
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET name=?  where id LIKE ?")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET name=? where id LIKE ?")) {
             preparedStatement.setString(1, name);
-//            preparedStatement.setString(2, password);
             preparedStatement.setLong(2, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -106,13 +102,5 @@ public class UserDAO {
         }
         return user;
     }
-
-//    public boolean idIsExist(long id){
-//        try (Statement statement = connection.prepareStatement("SELECT COUNT * FROM table users")){
-//            long count = statement.execute();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }
 

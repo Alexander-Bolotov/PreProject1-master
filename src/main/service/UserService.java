@@ -29,11 +29,11 @@ public class UserService {
         }
     }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return getUserDAO().getAllUser();
     }
 
-    public User getUserByName(String name){
+    public User getUserByName(String name) {
         return getUserDAO().getUserByName(name);
     }
 
@@ -61,6 +61,7 @@ public class UserService {
             throw new IllegalStateException();
         }
     }
+
     private static UserDAO getUserDAO() {
         return new UserDAO(getMysqlConnection());
     }
@@ -73,9 +74,10 @@ public class UserService {
         }
         return false;
     }
-    public boolean deleteUserByName (String name){
+
+    public boolean deleteUserByName(String name) {
         UserDAO dao = getUserDAO();
-        if (dao.nameIsExist(name)){
+        if (dao.nameIsExist(name)) {
             dao.deleteUserByName(name);
             return true;
         }
@@ -84,19 +86,13 @@ public class UserService {
 
     public boolean editeUser(User user) {
         UserDAO dao = getUserDAO();
-        if (dao.nameIsExist(user.getName())){
-            dao.editeUser(user.getId(), user.getName(), user.getPassword());
+
+        if (dao.idIsExist(user.getId())&&!dao.nameIsExist(user.getName())) {
+            dao.editeUser(user.getId(), user.getName());
             return true;
         }
         return false;
     }
 
-//    public boolean editeUserByID(Long id) {
-//        UserDAO dao = getUserDAO();
-//        if (dao.nameIsExist(user.getName())){
-//            dao.editeUser(user.getId(), user.getName(), user.getPassword());
-//            return true;
-//        }
-//        return false;
-//    }
+
 }

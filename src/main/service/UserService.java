@@ -88,7 +88,7 @@ public class UserService {
         UserDAO dao = getUserDAO();
 
         if (dao.idIsExist(user.getId())&&!dao.nameIsExist(user.getName())) {
-            dao.editeUser(user.getId(), user.getName());
+            dao.editeUser(user.getId(), user.getName(), user.getPassword());
             return true;
         }
         return false;

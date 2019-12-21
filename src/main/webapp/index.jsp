@@ -31,6 +31,8 @@
     <p>
         New Name: <input type="text" name="name"/>
     <p>
+        New Password: <input type="text" name="password"/>
+    <p>
         <input type="submit" value="Изменить">
 </form>
 <hr/>

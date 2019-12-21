@@ -17,9 +17,10 @@ public class EditeServlet extends HttpServlet {
         UserService userService = UserService.getInstance();
         Long id = Long.parseLong(req.getParameter("id"));
         String name = req.getParameter("name");
-        User user = new User(id, name);
+        String password = req.getParameter("password");
+        User user = new User(id, name, password);
 
-        if (name == null || id == null) {
+        if (name == null || id == null || password == null) {
             resp.setContentType("text/html;charset=utf-8");
             resp.getWriter().println("Не введен пароль или логин или ID");
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);

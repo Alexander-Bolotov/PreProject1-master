@@ -76,12 +76,13 @@ public class UserDAO {
         }
     }
 
-    public void editeUser(long id, String name) {
+    public void editeUser(long id, String name, String password) {
 //        User user = getUserById(id);
 
-        try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET name=? where id LIKE ?")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET name=?, password=? where id LIKE ?")) {
             preparedStatement.setString(1, name);
-            preparedStatement.setLong(2, id);
+            preparedStatement.setString(2, password);
+            preparedStatement.setLong(3, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
